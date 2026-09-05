@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Engineering Doc Mapper"
+  short_description: "Map tests to architecture, evidence, and CI boundaries"
+  default_prompt: "Use $test-engineering-doc-mapper to audit this testing document against the repository and correct unsupported coverage claims."

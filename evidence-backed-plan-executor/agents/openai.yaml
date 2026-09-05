@@ -1,0 +1,4 @@
+interface:
+  display_name: "Evidence-Backed Plan Executor"
+  short_description: "Execute plans with evidence and learning transfer"
+  default_prompt: "Use $evidence-backed-plan-executor to execute one plan unit and teach me the engineering decisions with verifiable evidence."

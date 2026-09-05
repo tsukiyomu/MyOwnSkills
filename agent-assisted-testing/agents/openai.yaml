@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent-Assisted Testing SOP v1.2"
+  short_description: "Run traceable AI-assisted testing with frozen baselines"
+  default_prompt: "Use $agent-assisted-testing to apply SOP v1.2 to this repository and report the evidence, exact execution context, and review boundaries."
