@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan Re-entry Guide"
+  short_description: "Recover an active plan's context and next step"
+  default_prompt: "Use $plan-reentry-guide to refresh a concise PLAN-REENTRY.md from the active plan, relevant architecture, and work-unit evidence."

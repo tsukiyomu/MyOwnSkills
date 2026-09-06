@@ -1,0 +1,4 @@
+interface:
+  display_name: "Evidence-Backed Execution Rationale"
+  short_description: "Explain engineering decisions with evidence and cues"
+  default_prompt: "Use $evidence-backed-execution-rationale in learning mode to explain material implementation decisions, their evidence and verification limits, and the engineering principle and recognition cue behind each."
