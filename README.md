@@ -1,38 +1,41 @@
 # Myown · 工程协作 Skills
 
-这里收录了我整理的 9 个 AI Agent skill，用于推进开发计划、开展软件测试，以及整理工程记录和 Agent 会话。
+这里整理了我用于真实软件工程工作的 AI Agent skills，重点是学习工程判断、开展测试，并留下可追溯的执行记录。目前使用 8 个 skill，另保留 1 个已停用的 `plan-progress-checkpoint` 目录供历史参考。
 
 我希望这些记录能让人看清 Agent 做了什么、为什么这样做、结果有什么依据。以后修改实现或排查错误时，也能沿着文档找到相关代码、日志和验证结果。各个 skill 都要求分清已经验证的内容和仍需确认的问题。
 
-下面按用途分为 4 类。点击技能名称，可以查看对应的 `SKILL.md`。
-
 ## 分类导航
+
+当前使用的技能按用途分为 5 类。点击名称可查看对应的 `SKILL.md`。
 
 | 分类 | 数量 | 用途 |
 | --- | ---: | --- |
-| [计划推进与执行记录](#计划推进与执行记录) | 4 | 管理进度、解释工程决策、记录结果，恢复当前计划的上下文 |
+| [项目理解与计划回归](#项目理解与计划回归) | 2 | 熟悉项目，恢复某份计划的目标、进展和下一步上下文 |
+| [工程决策说明](#工程决策说明) | 1 | 根据仓库事实解释重要实现选择及其验证范围 |
 | [软件测试与 CI/CD](#软件测试与-cicd) | 3 | 设计与执行测试、梳理覆盖范围、分析流水线结果 |
-| [项目回归](#项目回归) | 1 | 重新熟悉项目目标、主要流程和术语 |
+| [执行结果记录](#执行结果记录) | 1 | 记录一次工作的实际成果、验收证据和未解决的问题 |
 | [Agent 会话分析](#agent-会话分析) | 1 | 复盘 Agent 的执行过程，核对最终结论 |
 
-## 计划推进与执行记录
+`plan-progress-checkpoint` 不计入以上分类，原因见[停用说明](#为什么不再使用-plan-progress-checkpoint)。
 
-这四个 skill 围绕一份已有计划分工：进度记在哪里，重要实现选择怎样解释，一次工作结束后留下什么，以及隔一段时间回来从哪里继续读。
+## 项目理解与计划回归
+
+重新熟悉整个项目时，用 `project-reentry-guide` 梳理背景；已经知道项目在做什么、只需要接着某份计划往下做时，用 `plan-reentry-guide` 恢复当前上下文。两者按需要选择，不要求依次使用，也不代替计划本身。
 
 | Skill | 适用场景 | 主要产出 |
 | --- | --- | --- |
-| [plan-progress-checkpoint](./plan-progress-checkpoint/SKILL.md) | 选择可执行的工作单元，保留约定的范围和验收要求，核对或登记进度 | 计划状态、简短进度台账、验收依据链接和下一步建议 |
-| [evidence-backed-execution-rationale](./evidence-backed-execution-rationale/SKILL.md) | 实现过程中或回看已有改动时，解释重要工程选择及其依据 | 仓库事实、由此发现的问题、实现选择、实际影响和验证范围之间的说明 |
-| [evidence-backed-work-unit-journal](./evidence-backed-work-unit-journal/SKILL.md) | 记录一次迁移、开发、修复、测试或重构的结果，也可精简已有记录 | 实际成果、与计划的差异、验收证据、尚未验证的部分和下一步 |
+| [project-reentry-guide](./project-reentry-guide/SKILL.md) | 离开项目一段时间后，重新了解目标、关键流程、术语和进展 | 项目回归指南，说明系统用途、已完成的工作、测试所能证明的内容、剩余问题和参考文档 |
 | [plan-reentry-guide](./plan-reentry-guide/SKILL.md) | 回到某份正在推进的计划，恢复足够继续工作的上下文 | 带日期的计划回归指南，说明工作起因、当前进展、未解决的问题、下一步理由和阅读入口 |
 
-计划负责约定目标、要求和验收条件。Agent 在这些约束及项目规则下选择实现方式；`plan-progress-checkpoint` 负责选择任务、维护状态和登记结果。未指定范围时，它默认选择一个可独立验收的工作单元；已经明确要求完成一批任务或整份计划时，则保留该范围。
+## 工程决策说明
 
-`evidence-backed-execution-rationale` 由原来的 `evidence-backed-plan-executor` 调整而来，职责收敛到解释重要决策。它不规定统一的实现流程，也不接管进度或 Journal。需要边做边学时，可以补充工程原则和以后识别类似问题的线索；学习模式本身不要求自动暂停或提问。
+计划中的实现设想可能与当前仓库不完全一致。这里需要说明的是：发现了什么事实，它为什么影响任务，以及实际选择如何满足约定的要求。
 
-`evidence-backed-work-unit-journal` 让读者先看清这次工作的结果，再通过引用查到证据。详细日志、测试报告和已有决策说明按需链接，精简正文时保留追溯所需的原始信息。`plan-reentry-guide` 则从计划、相关架构和 Journal 中整理当前上下文，具体状态仍以原计划及其进度记录为准。
+| Skill | 适用场景 | 主要产出 |
+| --- | --- | --- |
+| [evidence-backed-execution-rationale](./evidence-backed-execution-rationale/SKILL.md) | 实现过程中或回看已有改动时，解释重要工程选择及其依据 | 仓库事实、由此发现的问题、实现选择、实际影响和验证范围之间的说明 |
 
-这些 skill 可以按需组合，不要求每次任务都生成四份文档。比如一次修复可以更新已有台账、在对话中解释关键选择，再留下简短 Journal；需要重新接上计划时，再整理回归指南。这次职责调整能否让记录更好读、更方便追溯，还需要在后续实际使用中检验。
+这个 skill 由原来的 `evidence-backed-plan-executor` 调整而来，职责收敛到解释重要决策。它不规定统一的实现流程，也不接管进度或 Journal。需要边做边学时，可以补充工程原则和以后识别类似问题的线索；学习模式本身不要求自动暂停或提问。
 
 ## 软件测试与 CI/CD
 
@@ -48,13 +51,15 @@
 
 `test-engineering-doc-mapper` 会说明测试覆盖了哪些行为、用了哪些真实或替代依赖，以及哪些结论还没有证据。它主要负责文档核对，修改测试或 CI 需要另行明确任务。
 
-## 项目回归
+## 执行结果记录
 
-目录里仍保留 `project-reentry-guide`，用于重新熟悉整个项目。它覆盖的背景比 `plan-reentry-guide` 更广；如果只是想接着某份计划往下做，可以从上面的计划回归指南开始。
+一次工作结束后，先让读者看清实际成果和验收情况，再通过引用找到详细证据。
 
 | Skill | 适用场景 | 主要产出 |
 | --- | --- | --- |
-| [project-reentry-guide](./project-reentry-guide/SKILL.md) | 离开项目一段时间后，重新了解目标、关键流程、术语和进展 | 项目回归指南，说明系统用途、已完成的工作、测试所能证明的内容、剩余问题和参考文档 |
+| [evidence-backed-work-unit-journal](./evidence-backed-work-unit-journal/SKILL.md) | 记录一次迁移、开发、修复、测试或重构的结果，也可精简已有记录 | 实际成果、与计划的差异、验收证据、尚未验证的部分和下一步 |
+
+详细日志、测试报告和已有决策说明按需链接。精简正文时保留追溯所需的原始信息，包括相关版本、执行环境和仍有影响的失败记录。Journal 的结论应能查回证据，生成了报告本身不代表任务已经通过验收。
 
 ## Agent 会话分析
 
@@ -66,6 +71,37 @@
 
 使用时提供会话记录、工具输出、相关代码或验证结果，并说明要分析哪一段。Journal 侧重一次工作的最终成果；会话分析会沿着可观察的记录还原执行过程，缺少证据的地方会明确标出。
 
+## 为什么不再使用 plan-progress-checkpoint
+
+**`plan-progress-checkpoint` 已退出当前使用方案，本地文件保留供历史参考。** 这次调整将重点放在工程判断、测试验证和执行记录上。
+
+原来的 checkpoint 承担任务选择、范围维护和进度登记，也包含执行前的检查。重新梳理后，我认为这些职责可以放回计划、项目规则和已有任务记录中，没有必要再用一个独立 skill 作为计划与执行之间的中间层。
+
+约束需要在执行之前明确，并在执行过程中持续遵守。例如，任务是“增加确定性的 SSE 契约测试，只修改测试层，不改变生产 API”，这些边界就应直接写进 Plan 和 Work Unit。Agent 选择实现方案时应检查是否符合约束，Review 再依据改动和证据核对结果。等越界改动完成后才靠 checkpoint 提醒，已经太晚。
+
+当前采用以下分工：
+
+| 层次 | 负责什么 |
+| --- | --- |
+| Architecture | 说明系统结构和长期设计依据，为计划提供背景 |
+| Plan / Work Unit | 定义目标、范围、非目标、验收条件、依赖和本次任务的约束 |
+| Global Rules / Repository Instructions | 规定长期适用的编码风格、测试框架、安全要求、依赖策略等规则 |
+| Agent Execution | 在计划和规则内，根据当前仓库选择实现方法，完成授权范围内的工作与验证 |
+| Execution Rationale | 解释重要选择如何来自仓库事实、解决了什么问题，以及验证能说明什么 |
+| Evidence / Review | 用测试、CI、日志或其他适当证据核对结果，判断是否满足验收要求 |
+| Work Unit Journal | 记录实际成果、偏差、证据和仍未解决的问题 |
+| Plan Re-entry | 从计划和执行记录中恢复当前上下文，给出继续阅读和工作的入口 |
+
+这些约束和说明贯穿实际工作，不是要求每次都依次调用的八个步骤。比如计划建议的旧 hook 已经不存在，Agent 可以在约定范围内寻找合适的接入位置，再用 Rationale 解释选择依据；如果必须改变任务边界或验收条件，应先明确处理这个冲突。
+
+停用 checkpoint 后，进度仍记录在项目已有的计划清单、Issue 或任务台账中。执行任务的 Agent 按项目约定更新状态并链接证据，验收缺口保持可见。Rationale、Journal 和 Re-entry 各自提供说明，不另建一套进度系统。
+
+长周期自动运行、多 Agent 协作或 CI 流程仍可能需要 checkpoint，保存“完成到哪里、下一步允许执行什么”等状态。这类需求适合由项目管理工具或工作流编排机制承担；当前这组核心技能不承担该职责。
+
+[旧版 plan-progress-checkpoint 文件](./plan-progress-checkpoint/SKILL.md) 继续保留。本次只更新 README，相关 `SKILL.md` 中尚存的 checkpoint 分工描述属于待同步的旧说明，不表示仍推荐启用它。
+
+这些 skill 可以按需组合，不要求每次任务生成一整套文档。这次调整能否让记录更好读、更方便追溯，仍需要在后续实际使用中检验。
+
 ## 使用方式
 
 1. 选择适合当前任务的 skill，阅读其 `SKILL.md`，确认适用范围和所需材料。
@@ -74,7 +110,7 @@
 
 可以参考下面的请求，补上自己的项目材料：
 
-- 使用 `plan-progress-checkpoint` 推进这份实施计划中的下一个可独立验收任务，完成实现和验证后更新进度。重要工程选择用 `evidence-backed-execution-rationale` 解释，并用 `evidence-backed-work-unit-journal` 记录结果和证据。
+- 按这份实施计划和仓库规则完成指定任务，依据验收结果更新已有任务记录。重要工程选择用 `evidence-backed-execution-rationale` 解释，并用 `evidence-backed-work-unit-journal` 记录结果和证据。
 - 使用 `evidence-backed-execution-rationale`，结合当前代码和测试解释这次依赖替换的依据、影响及验证范围，并补充相关工程原则。
 - 使用 `evidence-backed-work-unit-journal`，把这份冗长记录改写为简短 Journal，保留实际成果、与计划的差异、验收依据和未解决的问题，并链接原始证据。
 - 使用 `plan-reentry-guide`，结合这份计划和近期 Journal，说明为什么做这项工作、进展到了哪里，以及下一步为什么先做这个任务。
@@ -88,7 +124,7 @@
 
 ## 目录结构
 
-下图只列出技能入口文件：
+下图列出技能入口文件；`plan-progress-checkpoint` 保留在本地作为历史参考，不再使用：
 
 ```text
 .
@@ -103,7 +139,7 @@
 │   └── SKILL.md
 ├── evidence-backed-work-unit-journal/
 │   └── SKILL.md
-├── plan-progress-checkpoint/
+├── plan-progress-checkpoint/  # 不再使用，保留历史文件
 │   └── SKILL.md
 ├── plan-reentry-guide/
 │   └── SKILL.md
