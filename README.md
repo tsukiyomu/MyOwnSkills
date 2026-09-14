@@ -1,16 +1,17 @@
 # Myown · 工程协作 Skills
 
-这里整理了我用于真实软件工程工作的 AI Agent skills，重点是学习工程判断、开展测试，并留下可追溯的执行记录。目前使用 8 个 skill，另保留 1 个已停用的 `plan-progress-checkpoint` 目录供历史参考。
+这里整理了我用于真实软件工程工作的 AI Agent skills，重点是学习工程判断、开展测试，并留下可追溯的执行记录。目前使用 9 个 skill，另保留 1 个已停用的 `plan-progress-checkpoint` 目录供历史参考。
 
 我希望这些记录能让人看清 Agent 做了什么、为什么这样做、结果有什么依据。以后修改实现或排查错误时，也能沿着文档找到相关代码、日志和验证结果。各个 skill 都要求分清已经验证的内容和仍需确认的问题。
 
 ## 分类导航
 
-当前使用的技能按用途分为 5 类。点击名称可查看对应的 `SKILL.md`。
+当前使用的技能按用途分为 6 类。点击名称可查看对应的 `SKILL.md`。
 
 | 分类 | 数量 | 用途 |
 | --- | ---: | --- |
 | [项目理解与计划回归](#项目理解与计划回归) | 2 | 熟悉项目，恢复某份计划的目标、进展和下一步上下文 |
+| [实现学习](#实现学习) | 1 | 从 Journal 追到代码、配置和测试，系统理解一次改动的具体实现 |
 | [工程决策说明](#工程决策说明) | 1 | 根据仓库事实解释重要实现选择及其验证范围 |
 | [软件测试与 CI/CD](#软件测试与-cicd) | 3 | 设计与执行测试、梳理覆盖范围、分析流水线结果 |
 | [执行结果记录](#执行结果记录) | 1 | 记录一次工作的实际成果、验收证据和未解决的问题 |
@@ -27,6 +28,18 @@
 | [project-reentry-guide](./project-reentry-guide/SKILL.md) | 离开项目一段时间后，重新了解目标、关键流程、术语和进展 | 项目回归指南，说明系统用途、已完成的工作、测试所能证明的内容、剩余问题和参考文档 |
 | [plan-reentry-guide](./plan-reentry-guide/SKILL.md) | 回到某份正在推进的计划，恢复足够继续工作的上下文 | 带日期的计划回归指南，说明工作起因、当前进展、未解决的问题、下一步理由和阅读入口 |
 
+## 实现学习
+
+读完 Journal、知道这次做了什么之后，可以沿着对应版本的代码和测试继续学习具体实现。
+
+| Skill | 适用场景 | 主要产出 |
+| --- | --- | --- |
+| [work-unit-implementation-walkthrough](./work-unit-implementation-walkthrough/SKILL.md) | 以 Journal 或变更报告为入口，逐项理解某个 Work Unit 的实现 | 学习路线、关键代码与 diff 讲解、具体运行示例、测试断言说明，以及可复用的工程做法 |
+
+它先核对 Journal 与实际改动，整理需要理解的主题，再按调用关系或依赖顺序展开。每个实质要点都会得到讲解；简单部分简讲，复杂部分深入到关键调用、数据和状态变化。正文会把代码片段串进一个具体例子中，说明测试怎样检查这些行为，避免读者自己拼接分散的技术点。
+
+实现学习文档按需单独生成，保留原 Journal 的结果和决策组织方式。没有历史代码或执行证据时，会标明缺口，不把当前代码当成当时实现，也不从 Journal 的章节顺序推测 Agent 的执行过程。这个 skill 的实际学习效果仍需后续使用检验。
+
 ## 工程决策说明
 
 计划中的实现设想可能与当前仓库不完全一致。这里需要说明的是：发现了什么事实，它为什么影响任务，以及实际选择如何满足约定的要求。
@@ -35,7 +48,7 @@
 | --- | --- | --- |
 | [evidence-backed-execution-rationale](./evidence-backed-execution-rationale/SKILL.md) | 实现过程中或回看已有改动时，解释重要工程选择及其依据 | 仓库事实、由此发现的问题、实现选择、实际影响和验证范围之间的说明 |
 
-这个 skill 由原来的 `evidence-backed-plan-executor` 调整而来，职责收敛到解释重要决策。它不规定统一的实现流程，也不接管进度或 Journal。需要边做边学时，可以补充工程原则和以后识别类似问题的线索；学习模式本身不要求自动暂停或提问。
+这个 skill 由原来的 `evidence-backed-plan-executor` 调整而来，职责收敛到解释重要决策。它负责识别值得记录的决策，并说明怎样把理由写清楚；不规定统一的实现流程，也不接管进度或 Journal 的组织规则。需要边做边学时，可以补充工程原则和以后识别类似问题的线索；学习模式本身不要求自动暂停或提问。
 
 ## 软件测试与 CI/CD
 
@@ -57,9 +70,38 @@
 
 | Skill | 适用场景 | 主要产出 |
 | --- | --- | --- |
-| [evidence-backed-work-unit-journal](./evidence-backed-work-unit-journal/SKILL.md) | 记录一次迁移、开发、修复、测试或重构的结果，也可精简已有记录 | 实际成果、与计划的差异、验收证据、尚未验证的部分和下一步 |
+| [evidence-backed-work-unit-journal](./evidence-backed-work-unit-journal/SKILL.md) | 记录一次迁移、开发、修复、测试或重构的结果，也可精简已有记录 | 实际成果、与计划的差异、关键工程决策、验收证据、尚未验证的部分和下一步 |
 
-详细日志、测试报告和已有决策说明按需链接。精简正文时保留追溯所需的原始信息，包括相关版本、执行环境和仍有影响的失败记录。Journal 的结论应能查回证据，生成了报告本身不代表任务已经通过验收。
+默认一个 Work Unit 使用一份 Journal：Rationale Skill 提供“哪些决定值得解释、怎样解释”的内容规则，Journal Skill 提供结果和决策的组织规则。职责分开，不要求各自生成一个文件；精炼的 Rationale 直接写进 Journal 的 **Key Engineering Decisions**。
+
+[Journal 模板](./evidence-backed-work-unit-journal/assets/work-unit-journal-template.md)采用以下阅读顺序，按内容合并或省略没有信息的章节：
+
+```text
+<work-unit>-journal.md
+├── 1. Summary
+├── 2. Execution Result
+├── 3. Key Engineering Decisions
+├── 4. Evidence
+├── 5. Proof Boundary
+├── 6. Next Step
+└── Appendix（按需）
+    ├── Detailed Rationale
+    ├── raw commands
+    ├── artifact metadata
+    └── failure/recovery detail
+```
+
+正文让读者连贯地看到：这次要解决什么 → 最终怎么解决 → 为什么选择这样解决 → 有什么证据 → 证据能证明到哪。关键决策通常保留 1–3 条，写清“仓库事实 → 工程问题 → 决策与实际影响 → 验证及其边界”；没有实质决策时不凑数。学习模式可在决策旁补充简短的工程原则和识别线索。
+
+| 情况 | 默认放置方式 |
+| --- | --- |
+| 普通 Work Unit | 关键决策直接放在 Journal 正文 |
+| 复杂 Work Unit | 正文保留摘要，展开说明放在同一文件的 Appendix — Detailed Rationale |
+| 影响超出本 Work Unit 的长期架构决策 | Journal 保留摘要并链接独立 ADR；新建或修改 ADR 应在任务范围内 |
+
+例如，本轮 SSE contract test 为什么使用 fake Loop，适合直接记在 Journal；整个系统为什么采用 event sourcing，才可能值得独立 ADR。常规搜索、打开文件或换命令不逐项解释，有长期排障或恢复价值的细节再进附录。
+
+详细日志、测试报告和已有决策说明按需链接，不默认再创建同名的 `rationale.md`。精简正文时保留追溯所需的原始信息，包括相关版本、执行环境和仍有影响的失败记录。Journal 的结论应能查回证据，生成了报告本身不代表任务已经通过验收。
 
 ## Agent 会话分析
 
@@ -87,9 +129,9 @@
 | Plan / Work Unit | 定义目标、范围、非目标、验收条件、依赖和本次任务的约束 |
 | Global Rules / Repository Instructions | 规定长期适用的编码风格、测试框架、安全要求、依赖策略等规则 |
 | Agent Execution | 在计划和规则内，根据当前仓库选择实现方法，完成授权范围内的工作与验证 |
-| Execution Rationale | 解释重要选择如何来自仓库事实、解决了什么问题，以及验证能说明什么 |
+| Execution Rationale | 规定关键决策如何从仓库事实解释到实现选择和验证边界，默认嵌入 Journal |
 | Evidence / Review | 用测试、CI、日志或其他适当证据核对结果，判断是否满足验收要求 |
-| Work Unit Journal | 记录实际成果、偏差、证据和仍未解决的问题 |
+| Work Unit Journal | 在一份记录中组织实际成果、偏差、关键决策、证据和仍未解决的问题 |
 | Plan Re-entry | 从计划和执行记录中恢复当前上下文，给出继续阅读和工作的入口 |
 
 这些约束和说明贯穿实际工作，不是要求每次都依次调用的八个步骤。比如计划建议的旧 hook 已经不存在，Agent 可以在约定范围内寻找合适的接入位置，再用 Rationale 解释选择依据；如果必须改变任务边界或验收条件，应先明确处理这个冲突。
@@ -98,7 +140,7 @@
 
 长周期自动运行、多 Agent 协作或 CI 流程仍可能需要 checkpoint，保存“完成到哪里、下一步允许执行什么”等状态。这类需求适合由项目管理工具或工作流编排机制承担；当前这组核心技能不承担该职责。
 
-[旧版 plan-progress-checkpoint 文件](./plan-progress-checkpoint/SKILL.md) 继续保留。本次只更新 README，相关 `SKILL.md` 中尚存的 checkpoint 分工描述属于待同步的旧说明，不表示仍推荐启用它。
+[旧版 plan-progress-checkpoint 文件](./plan-progress-checkpoint/SKILL.md) 继续保留。Rationale 和 Journal 的职责说明已同步到当前分工；其他文件中尚存的 checkpoint 分工描述属于待同步的旧说明，不表示仍推荐启用它。
 
 这些 skill 可以按需组合，不要求每次任务生成一整套文档。这次调整能否让记录更好读、更方便追溯，仍需要在后续实际使用中检验。
 
@@ -110,9 +152,11 @@
 
 可以参考下面的请求，补上自己的项目材料：
 
-- 按这份实施计划和仓库规则完成指定任务，依据验收结果更新已有任务记录。重要工程选择用 `evidence-backed-execution-rationale` 解释，并用 `evidence-backed-work-unit-journal` 记录结果和证据。
+- 使用 `work-unit-implementation-walkthrough`，以这份 Journal 为入口，核对对应版本的代码、diff 和测试。先给出完整学习路线，再逐项讲解本次改动的具体实现，用关键代码和一个具体例子串起运行过程，说明测试断言怎样验证结果。
+
+- 按这份实施计划和仓库规则完成指定任务，依据验收结果更新已有任务记录。重要工程选择按 `evidence-backed-execution-rationale` 解释，并按 `evidence-backed-work-unit-journal` 将结果、关键决策和证据写进同一份 Journal；详细理由按需放入同文件附录。
 - 使用 `evidence-backed-execution-rationale`，结合当前代码和测试解释这次依赖替换的依据、影响及验证范围，并补充相关工程原则。
-- 使用 `evidence-backed-work-unit-journal`，把这份冗长记录改写为简短 Journal，保留实际成果、与计划的差异、验收依据和未解决的问题，并链接原始证据。
+- 使用 `evidence-backed-work-unit-journal`，把这份冗长记录改写为简短 Journal，保留实际成果、与计划的差异、关键决策、验收依据和未解决的问题，并链接原始证据。
 - 使用 `plan-reentry-guide`，结合这份计划和近期 Journal，说明为什么做这项工作、进展到了哪里，以及下一步为什么先做这个任务。
 - 使用 `agent-assisted-testing` 的 design 模式，结合需求、现有测试和项目基线，整理当前功能的风险及候选测试场景。
 - 使用 `test-engineering-doc-mapper`，对照代码、测试和 CI 检查这份测试说明，修正覆盖范围和依赖描述。
@@ -145,7 +189,9 @@
 │   └── SKILL.md
 ├── project-reentry-guide/
 │   └── SKILL.md
-└── test-engineering-doc-mapper/
+├── test-engineering-doc-mapper/
+│   └── SKILL.md
+└── work-unit-implementation-walkthrough/
     └── SKILL.md
 ```
 
