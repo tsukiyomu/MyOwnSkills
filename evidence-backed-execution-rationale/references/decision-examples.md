@@ -2,6 +2,10 @@
 
 These examples are illustrative, not repository evidence or a workflow to repeat.
 Use only facts and verification results actually available in the current task.
+When a journal is part of the task, use these compact records in its Key Engineering
+Decisions section. Principle and recognition cue fields are for learning mode.
+Both examples normally fit in the journal body; longer explanation can go in its
+Appendix — Detailed Rationale. Neither choice alone requires an independent ADR.
 
 ## Choosing a new trace boundary
 

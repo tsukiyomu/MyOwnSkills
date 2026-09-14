@@ -1,6 +1,6 @@
 ---
 name: evidence-backed-execution-rationale
-description: Explain material engineering decisions using repository evidence, the concern it reveals, the chosen implementation, its effect, and verification limits. Use during implementation or when explaining an existing change, especially for integration points, state ownership, dependency control, and test boundaries. Adds engineering principles and recognition cues in learning mode; does not prescribe execution steps or manage plan progress and journals.
+description: Explain material engineering decisions using repository evidence, the concern it reveals, the chosen implementation, its effect, and verification limits. Use during implementation or when explaining an existing change, especially for integration points, state ownership, dependency control, and test boundaries. Adds engineering principles and recognition cues in learning mode; supplies decision content for a work-unit journal without prescribing execution steps or managing progress.
 ---
 
 # Evidence-Backed Execution Rationale
@@ -66,6 +66,16 @@ Learning mode adds explanation, not quizzes, mastery labels, or automatic pauses
 
 Treat explicit implementation requirements and project rules as binding. A stale hook suggested in a Plan is different from a mandated integration boundary. Adapt a disproved assumption within the contract; if the needed change would violate an explicit requirement or alter acceptance, make that conflict clear and obtain the unresolved decision before dependent work. Do not silently relabel a requirement as an assumption.
 
-[Plan Progress Checkpoint](../plan-progress-checkpoint/SKILL.md) owns unit selection, status, and progress. [Work Unit Journal](../evidence-backed-work-unit-journal/SKILL.md) owns the final outcome, evidence, and proof limits. This skill owns the explanation of why an implementation was chosen. Those links describe neighboring responsibilities, not mandatory calls or dependencies.
+The project’s Plan, Issue, or existing task ledger owns unit selection, status, and progress. [Work Unit Journal](../evidence-backed-work-unit-journal/SKILL.md) owns the report structure: outcome, key decisions, evidence, and proof limits. This skill supplies the content rules for recognizing and explaining those decisions. These responsibilities can share one artifact; neither skill requires calling the other.
 
-Applying this skill does not select the next unit, set status, update a ledger, write a journal, or create a separate rationale document. Follow the user's requested communication or artifact location; concise explanations in the conversation are sufficient by default. When the broader task separately includes progress or reporting, avoid duplicating the rationale there.
+## Where the rationale lives
+
+Follow the user's requested communication or artifact location. When the task includes a Work Unit Journal, place the concise rationale in that journal's **Key Engineering Decisions** section. Usually one to three material decisions are enough; do not invent decisions to meet a quota. Preserve the evidence, concern, decision, resulting effect, and verification boundary. In learning mode, keep the principle and recognition cue beside the decision.
+
+Use three levels of detail:
+
+- **Ordinary work unit:** key decisions in the journal body; no companion rationale file.
+- **Complex work unit:** concise decisions in the body with links to **Appendix — Detailed Rationale** in the same journal for useful depth.
+- **Enduring architectural decision:** a short summary in the journal with a link to an existing or explicitly requested independent ADR. A decision warrants an ADR when its scope and consequences outlive this work unit, such as adopting event sourcing across the system; choosing a fake loop for this unit's SSE contract test normally belongs in the journal.
+
+Applying this skill alone does not select a unit, update status, write a journal, or create an ADR. For an explanation-only request, a concise conversation response is sufficient. Reuse existing detailed records through links and consolidate the final decision once in the journal instead of duplicating full explanations across files. Routine searches, file reads, and command retries do not belong in the decision section; retain such detail in an appendix only when it has lasting diagnostic or recovery value.
